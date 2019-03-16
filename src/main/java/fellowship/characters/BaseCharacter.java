@@ -27,6 +27,7 @@ import org.eclipse.collections.impl.factory.Sets;
 import org.eclipse.collections.impl.factory.primitive.IntLists;
 import org.eclipse.collections.impl.tuple.Tuples;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 import java.util.function.Function;
@@ -390,9 +391,19 @@ public class BaseCharacter implements MapObject {
                     public Collection<Point2D> valueOf(Point2D each) {
                         if (firstStep){
                             firstStep = false;
-                            return map.getNeighbors(each);
+                            ArrayList<Point2D> result = new ArrayList<>();
+                            for (Point2D point : map.getNeighbors(each))
+                            {
+                            	result.add(point);
+                            }
+                            return result;
                         } else {
-                            return neighborhood.getAdjacencies(each).select(map::inBounds);
+                            ArrayList<Point2D> result = new ArrayList<>();
+                            for (Point2D point : neighborhood.getAdjacencies(each).select(map::inBounds))
+                            {
+                            	result.add(point);
+                            }
+                            return result;
                         }
                     }
                 }));

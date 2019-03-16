@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/eclipse-collections-8.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/eclipse-collections-api-8.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.7.jar"/>
+	<classpathentry kind="lib" path="lib/jcommander-1.48.jar"/>
+	<classpathentry kind="lib" path="lib/jsoup-1.9.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/KoTHComm"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/FellowshipViewer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/FellowshipPlayers"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

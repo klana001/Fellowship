@@ -1,6 +1,6 @@
 package fellowship;
 
-import com.nmerrill.kothcomm.game.AbstractPlayer;
+import com.nmerrill.kothcomm.game.players.AbstractPlayer;
 import com.nmerrill.kothcomm.game.maps.Point2D;
 import fellowship.actions.ReadonlyAction;
 import fellowship.characters.CharacterTemplate;

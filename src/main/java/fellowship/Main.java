@@ -5,9 +5,9 @@ import com.nmerrill.kothcomm.communication.Downloader;
 import com.nmerrill.kothcomm.communication.LanguageLoader;
 import com.nmerrill.kothcomm.communication.languages.java.JavaLoader;
 import com.nmerrill.kothcomm.communication.languages.local.LocalJavaLoader;
-import com.nmerrill.kothcomm.game.PlayerType;
-import com.nmerrill.kothcomm.game.runners.FixedCountRunner;
-import com.nmerrill.kothcomm.game.runners.TournamentRunner;
+import com.nmerrill.kothcomm.game.TournamentRunner;
+import com.nmerrill.kothcomm.game.players.Submission;
+//import com.nmerrill.kothcomm.game.runners.FixedCountRunner;
 import com.nmerrill.kothcomm.game.scoring.Scoreboard;
 import com.nmerrill.kothcomm.game.scoring.ScoredRankingsAggregator;
 import com.nmerrill.kothcomm.game.tournaments.RoundRobin;
@@ -26,7 +26,7 @@ import org.eclipse.collections.impl.factory.Lists;
 import java.util.Random;
 
 public class Main extends Application {
-    private static TournamentRunner<Player, Fellowship> runner;
+    private static com.nmerrill.kothcomm.game.TournamentRunner<Player, Fellowship> runner;
 
     @Override
     public void start(Stage primaryStage) {
@@ -67,48 +67,48 @@ public class Main extends Application {
 //        localLoader.register("Sample", TemplatePlayer::new);
 //        localLoader.register("Your player", YourPlayer::new);
 //        loader.addLoader(localLoader);
-        MutableList<PlayerType<Player>> players = loader.load();
+        MutableList<Submission<Player>> players = loader.load();
         Random random = arguments.getRandom();
         runner = new TournamentRunner<>(new RoundRobin<>(players, random), new ScoredRankingsAggregator<>(), 2, Fellowship::new, random);
         if (arguments.useGui) {
             launch(Main.class);
         } else {
-            new FixedCountRunner<>(runner).run(arguments.iterations);
-
-            MutableList<Scoreboard<PlayerType<Player>>> scoreboards = runner.getScoreList();
-            TableBuilder builder = new TableBuilder();
-            builder.hasHeader(true);
-            builder.setBorderType(TableBuilder.BorderType.ASCII);
-            builder.rightAlign();
-            MutableList<String> header = Lists.mutable.of("Name");
-            players.sortThis();
-            header.addAll(players.collect(PlayerType::getName));
-            System.out.println(builder.display(players, p1 -> {
-                MutableList<String> row = Lists.mutable.of(p1.getName());
-                players.forEach(p2 -> {
-                    if (p1.equals(p2)){
-                        row.add("");
-                        return;
-                    }
-                    int wins=0, ties=0, losses=0;
-                    for (Scoreboard<PlayerType<Player>> scoreboard: scoreboards.select(s -> s.contains(p1) && s.contains(p2))){
-                        int compare = scoreboard.compare(p1, p2);
-                        if (compare < 0){
-                            wins++;
-                        } else if (compare > 0){
-                            losses++;
-                        } else {
-                            ties++;
-                        }
-                    }
-                    if (wins != 0 || ties != 0 || losses != 0) {
-                        row.add(wins + "-" + ties + "-" + losses);
-                    } else {
-                        row.add("");
-                    }
-                });
-                return row;
-            }, header));
+//            new FixedCountRunner<>(runner).run(arguments.iterations);
+//
+//            MutableList<Scoreboard<Submission<Player>>> scoreboards = runner.getScoreList();
+//            TableBuilder builder = new TableBuilder();
+//            builder.hasHeader(true);
+//            builder.setBorderType(TableBuilder.BorderType.ASCII);
+//            builder.rightAlign();
+//            MutableList<String> header = Lists.mutable.of("Name");
+//            players.sortThis();
+//            header.addAll(players.collect(Submission::getName));
+//            System.out.println(builder.display(players, p1 -> {
+//                MutableList<String> row = Lists.mutable.of(p1.getName());
+//                players.forEach(p2 -> {
+//                    if (p1.equals(p2)){
+//                        row.add("");
+//                        return;
+//                    }
+//                    int wins=0, ties=0, losses=0;
+//                    for (Scoreboard<Submission<Player>> scoreboard: scoreboards.select(s -> s.contains(p1) && s.contains(p2))){
+//                        int compare = scoreboard.compare(p1, p2);
+//                        if (compare < 0){
+//                            wins++;
+//                        } else if (compare > 0){
+//                            losses++;
+//                        } else {
+//                            ties++;
+//                        }
+//                    }
+//                    if (wins != 0 || ties != 0 || losses != 0) {
+//                        row.add(wins + "-" + ties + "-" + losses);
+//                    } else {
+//                        row.add("");
+//                    }
+//                });
+//                return row;
+//            }, header));
 
             System.exit(0);
         }

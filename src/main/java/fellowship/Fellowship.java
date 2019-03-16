@@ -3,9 +3,9 @@ package fellowship;
 
 import com.nmerrill.kothcomm.game.games.MaxActionQueueGame;
 import com.nmerrill.kothcomm.game.maps.Point2D;
-import com.nmerrill.kothcomm.game.maps.graphmaps.AdjacencyGraphMap;
 import com.nmerrill.kothcomm.game.maps.graphmaps.GraphMap;
-import com.nmerrill.kothcomm.game.maps.graphmaps.bounds.point2D.SquareBounds;
+import com.nmerrill.kothcomm.game.maps.graphmaps.NeighborhoodGraphMap;
+import com.nmerrill.kothcomm.game.maps.graphmaps.bounds.point2D.SquareRegion;
 import com.nmerrill.kothcomm.game.maps.graphmaps.neighborhoods.MooreNeighborhood;
 import com.nmerrill.kothcomm.game.scoring.Scoreboard;
 import fellowship.characters.BaseCharacter;
@@ -37,7 +37,7 @@ public class Fellowship extends MaxActionQueueGame<Player> {
     @Override
     public void setup() {
         teams = players.toMap(i -> i, Team::new);
-        map = new AdjacencyGraphMap<>(new SquareBounds(MAP_SIZE), new MooreNeighborhood());
+        map = new NeighborhoodGraphMap<Point2D, MapObject>(new SquareRegion(MAP_SIZE), new MooreNeighborhood());
 
         MutableList<Team> teamList = teams.valuesView().toList();
         teamList.zip(teamList.asReversed()).forEach(pair -> pair.getOne().setEnemyTeam(pair.getTwo()));
